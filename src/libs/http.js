@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: "http://localhost:3001",
+  baseURL: "http://localhost:3000",
   headers: {
     "Content-type": "application/json; charset=UTF-8",
     // 파일업로드시에는 다르게 설정함
