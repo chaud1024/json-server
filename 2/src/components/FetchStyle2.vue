@@ -12,7 +12,7 @@ onBeforeMount(async () => {
 console.log(15390 + 40000);
 </script>
 <template>
-  <h1>FetchStyle1</h1>
+  <h1>FetchStyle2</h1>
   <div>
     {{ data }}
   </div>
