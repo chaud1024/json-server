@@ -1,29 +1,15 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
 import { useRouter } from "vue-router";
-import axios from "axios";
-import { injectStrict } from "@/utils/injectTyped";
-import { AxiosKeys } from "@/libs/symbols";
+import { useFetch } from "@/composable/useFetch";
 
 const data = ref(null);
 const router = useRouter();
-// const http = axios.create({
-//   baseURL: "http://localhost:3001",
-//   headers: {
-//     "Content-type": "application/json; charset=UTF-8",
-//   },
-//   withCredentials: false,
-// });
-const http = injectStrict(AxiosKeys);
+const { request } = useFetch();
 
-const getData = () => {
-  // fetch("http://localhost:3001/posts")
-  //   .then((response) => response.json())
-  //   .then((result) => (data.value = result));
-
-  http
-    .get("/posts") // 사용자정의 baseURL 설정했음
-    .then((result) => (data.value = result.data));
+const getData = async () => {
+  const { data: result } = await request("/posts", "get");
+  data.value = result.value;
 };
 
 onBeforeMount(() => {
@@ -35,24 +21,13 @@ const goModify = (id) => {
   router.push("/modify?id=" + id);
 };
 
-const deleteItem = (id) => {
-  // fetch("http://localhost:3001/posts/" + id, {
-  //   method: "DELETE",
-  // })
-  //   .then((response) => response.json())
-  //   .then((result) => getData())
-  //   .catch((err) => console.log(err));
-
-  http
-    .delete("/posts/" + id)
-    .then((result) => {
-      if (result.status === 200) {
-        getData();
-      }
-    })
-    .catch((err) => {
-      alert("error : " + err.message);
-    });
+const deleteItem = async (id) => {
+  const { status, error } = await request(`/posts/${id}`, "delete");
+  if (status.value === 200) {
+    getData();
+  } else {
+    alert("error : " + error.value);
+  }
 };
 </script>
 

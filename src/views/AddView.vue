@@ -1,38 +1,27 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { injectStrict } from "@/utils/injectTyped";
-import { AxiosKeys } from "@/libs/symbols";
+import { useFetch } from "@/composable/useFetch";
 
 const title = ref("");
 const author = ref("");
 const router = useRouter();
 
-const http = injectStrict(AxiosKeys);
+const { request } = useFetch();
 
-const onAddHandler = () => {
+const onAddHandler = async () => {
   const data = {
     title: title.value,
     author: author.value,
   };
-  // fetch("http://localhost:3001/posts", {
-  //   method: "POST",
-  //   body: JSON.stringify(data),
-  //   headers: {
-  //     "Content-type": "application/json; charset=UTF-8",
-  //   },
-  // })
-  //   .then((response) => response.json())
-  //   .then((result) => router.push("/"));
 
-  http
-    .post("/posts", data)
-    .then((result) => {
-      if (result.status === 201) {
-        router.push("/");
-      }
-    })
-    .catch((err) => alert("error : " + err.message));
+  const { status, error } = await request("/posts", "post", data);
+
+  if (status.value === 201) {
+    router.push("/");
+  } else {
+    alert("error : " + error.value);
+  }
 };
 </script>
 <template>
