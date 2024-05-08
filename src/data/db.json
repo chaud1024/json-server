@@ -1,0 +1,49 @@
+{
+  "posts": [
+    {
+      "title": "sample22",
+      "author": "data maker22",
+      "id": "9f64"
+    },
+    {
+      "title": "Promis me",
+      "author": "to be happy",
+      "id": "dd38"
+    },
+    {
+      "id": "28c5",
+      "title": "hihihi",
+      "author": "this is hi"
+    },
+    {
+      "id": "0d74",
+      "title": "Hello there",
+      "author": "smart sushi"
+    },
+    {
+      "id": "96b9",
+      "title": "result",
+      "author": "201"
+    },
+    {
+      "id": "64bb",
+      "title": "InjectStrict",
+      "author": "AxiosKeys"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": null
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": null
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
